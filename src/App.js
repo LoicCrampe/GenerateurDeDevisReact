@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Info from './components/info';
+import Info from './components/Info';
 import EstimateForm from './components/EstimateForm';
 
 class App extends Component {
