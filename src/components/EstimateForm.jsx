@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Item from './Item';
 import {renderPDFInDom} from './PdfMaker';
+import InputText from './InputText';
 
 class EstimateForm extends Component {
     state = {
@@ -30,7 +31,7 @@ class EstimateForm extends Component {
         console.log(this, items);
         items[id] = {
             id: id,
-            description: "description",
+            description: "",
             quantity: "1",
             taxe: 0.2,
             amount: 0
@@ -55,15 +56,15 @@ class EstimateForm extends Component {
             <React.Fragment>
                 <div>Nouveau Devis</div>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="id" id="id" placeholder="ID" value={this.state.id} onChange={event => this.handleChange(event, 'id')} /><br />
-                    <input type="text" name="title" id="title" placeholder="Titre du devis" value={this.state.title} onChange={event => this.handleChange(event, 'title')}/><br/>
-                    <input type="text" name="ecustomerFirstName" id="customerFirstName" placeholder="Prénom" value={this.state.customerFirstName} onChange={event => this.handleChange(event, 'customerFirstName')} /><br />
-                    <input type="text" name="customerLastName" id="customerLastName" placeholder="Nom" value={this.state.customerLastName} onChange={event => this.handleChange(event, 'customerLastName')} /><br />
+                    <InputText label='id' name='id' value={this.state.id} onChange={this.handleChange} />
+                    <InputText label='Titre du devis' name='title' value={this.state.title} onChange={this.handleChange} />
+                    <InputText label='Prénom du client' name='customerFirstName' value={this.state.customerFirstName} onChange={this.handleChange} />
+                    <InputText label='Nom du client' name='customerLastName' value={this.state.customerLastName} onChange={this.handleChange} />
                     <button onClick={this.addItem} >Ajouter une ligne</button>
                     {Object.keys(this.state.items).map((itemId, index) => (
                         <Item key={index} item={this.state.items[itemId]} onItemChange={this.handleItemChange} />
                     ))}
-                    <button onClick={() => renderPDFInDom(JSON.stringify(this.state))}>Générer le devis</button>
+                    <button onClick={() => renderPDFInDom(this.state)}>Générer le devis</button>
                 </form>
             </React.Fragment>
         );
